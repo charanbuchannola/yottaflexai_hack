@@ -1,4 +1,4 @@
-# Python
+# Python & Backend
 __pycache__/
 *.py[cod]
 *$py.class
@@ -12,13 +12,21 @@ venv/
 .coverage
 htmlcov/
 
+# Frontend (Next.js)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+
 # Environment
 .env
 
 # Generated bulky runtime database & large data dumps (regenerated deterministically via CLI)
-data/*.db
-data/*.db-wal
-data/*.db-shm
+database/*.db
+database/*.db-wal
+database/*.db-shm
+database/seeds/seed.sql
+data/
 exports/csv/
 exports/json/
-exports/sql/seed.sql
+exports/sql/

@@ -2,14 +2,14 @@
   "checks": [
     {
       "check_id": "VAL-PK-CUSTOMERS",
-      "count": 5000,
+      "count": 250,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-PRODUCTS",
-      "count": 10,
+      "count": 5,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
@@ -23,7 +23,7 @@
     },
     {
       "check_id": "VAL-PK-SURVEYS",
-      "count": 50,
+      "count": 6,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
@@ -37,77 +37,77 @@
     },
     {
       "check_id": "VAL-PK-SURVEY_RESPONSES",
-      "count": 25010,
+      "count": 603,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-REVIEWS",
-      "count": 25000,
+      "count": 600,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-SUPPORT_TICKETS",
-      "count": 8000,
+      "count": 240,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-SUPPORT_MESSAGES",
-      "count": 20000,
+      "count": 600,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-SENTIMENT_LABELS",
-      "count": 70010,
+      "count": 1803,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-FEEDBACK_THEME_ASSIGNMENTS",
-      "count": 80326,
+      "count": 2030,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-SENTIMENT_SHIFTS",
-      "count": 115,
+      "count": 34,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-ACTION_ITEMS",
-      "count": 5,
+      "count": 35,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-ACTION_ITEM_EVIDENCE",
-      "count": 13465,
+      "count": 1361,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-MODEL_INPUTS",
-      "count": 70010,
+      "count": 1803,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
     },
     {
       "check_id": "VAL-PK-LIFECYCLE_EVENTS",
-      "count": 244810,
+      "count": 6546,
       "duplicates": 0,
       "invalid_format": 0,
       "passed": true
@@ -135,7 +135,7 @@
     },
     {
       "check_id": "VAL-FSM-REPLAY",
-      "events_replayed": 244810,
+      "events_replayed": 6546,
       "fsm_violations": 0,
       "passed": true,
       "projection_drift": 0
@@ -147,8 +147,8 @@
     },
     {
       "check_id": "VAL-ANOMALY-COVERAGE",
-      "detected_count": 50,
-      "expected_count": 50,
+      "detected_count": 15,
+      "expected_count": 15,
       "false_negatives": 0,
       "false_positives": 0,
       "mode": "WITH_ANOMALIES",
@@ -159,142 +159,51 @@
     {
       "issue_type": "LABEL_TEXT_CONTRADICTION",
       "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000001",
-      "target_record_id": "SENT-025001",
+      "source_record_id": "REV-2026-000005",
+      "target_record_id": "SENT-000605",
       "target_table": "sentiment_labels"
     },
     {
       "issue_type": "LABEL_TEXT_CONTRADICTION",
       "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000010",
-      "target_record_id": "SENT-025010",
+      "source_record_id": "REV-2026-000017",
+      "target_record_id": "SENT-000617",
       "target_table": "sentiment_labels"
     },
     {
       "issue_type": "LABEL_TEXT_CONTRADICTION",
       "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000021",
-      "target_record_id": "SENT-025021",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000023",
-      "target_record_id": "SENT-025023",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000030",
-      "target_record_id": "SENT-025030",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000042",
-      "target_record_id": "SENT-025042",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000050",
-      "target_record_id": "SENT-025050",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000051",
-      "target_record_id": "SENT-025051",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000052",
-      "target_record_id": "SENT-025052",
-      "target_table": "sentiment_labels"
-    },
-    {
-      "issue_type": "LABEL_TEXT_CONTRADICTION",
-      "rule_id": "VAL-ANOM-001",
-      "source_record_id": "REV-2026-000054",
-      "target_record_id": "SENT-025054",
+      "source_record_id": "REV-2026-000020",
+      "target_record_id": "SENT-000620",
       "target_table": "sentiment_labels"
     },
     {
       "issue_type": "DUPLICATE_RESPONSE",
       "rule_id": "VAL-ANOM-002",
       "source_record_id": "RESP-SUR-2026-000001-001",
-      "target_record_id": "RESP-SUR-2026-000001-501",
+      "target_record_id": "RESP-SUR-2026-000001-101",
       "target_table": "survey_responses"
     },
     {
       "issue_type": "DUPLICATE_RESPONSE",
       "rule_id": "VAL-ANOM-002",
       "source_record_id": "RESP-SUR-2026-000002-001",
-      "target_record_id": "RESP-SUR-2026-000002-501",
+      "target_record_id": "RESP-SUR-2026-000002-101",
       "target_table": "survey_responses"
     },
     {
       "issue_type": "DUPLICATE_RESPONSE",
       "rule_id": "VAL-ANOM-002",
       "source_record_id": "RESP-SUR-2026-000003-001",
-      "target_record_id": "RESP-SUR-2026-000003-501",
+      "target_record_id": "RESP-SUR-2026-000003-101",
       "target_table": "survey_responses"
     },
     {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000004-001",
-      "target_record_id": "RESP-SUR-2026-000004-501",
-      "target_table": "survey_responses"
-    },
-    {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000005-001",
-      "target_record_id": "RESP-SUR-2026-000005-501",
-      "target_table": "survey_responses"
-    },
-    {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000006-001",
-      "target_record_id": "RESP-SUR-2026-000006-501",
-      "target_table": "survey_responses"
-    },
-    {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000007-001",
-      "target_record_id": "RESP-SUR-2026-000007-501",
-      "target_table": "survey_responses"
-    },
-    {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000008-001",
-      "target_record_id": "RESP-SUR-2026-000008-501",
-      "target_table": "survey_responses"
-    },
-    {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000009-001",
-      "target_record_id": "RESP-SUR-2026-000009-501",
-      "target_table": "survey_responses"
-    },
-    {
-      "issue_type": "DUPLICATE_RESPONSE",
-      "rule_id": "VAL-ANOM-002",
-      "source_record_id": "RESP-SUR-2026-000010-001",
-      "target_record_id": "RESP-SUR-2026-000010-501",
-      "target_table": "survey_responses"
+      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
+      "rule_id": "VAL-ANOM-003",
+      "source_record_id": "REV-2026-000001",
+      "target_record_id": "REV-2026-000001",
+      "target_table": "reviews"
     },
     {
       "issue_type": "CUSTOMER_IDENTITY_LEAKED",
@@ -311,199 +220,45 @@
       "target_table": "reviews"
     },
     {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000004",
-      "target_record_id": "REV-2026-000004",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000005",
-      "target_record_id": "REV-2026-000005",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000006",
-      "target_record_id": "REV-2026-000006",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000007",
-      "target_record_id": "REV-2026-000007",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000008",
-      "target_record_id": "REV-2026-000008",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000009",
-      "target_record_id": "REV-2026-000009",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000011",
-      "target_record_id": "REV-2026-000011",
-      "target_table": "reviews"
-    },
-    {
-      "issue_type": "CUSTOMER_IDENTITY_LEAKED",
-      "rule_id": "VAL-ANOM-003",
-      "source_record_id": "REV-2026-000012",
-      "target_record_id": "REV-2026-000012",
-      "target_table": "reviews"
-    },
-    {
       "issue_type": "THEME_OUTSIDE_TAXONOMY",
       "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000011-001",
-      "target_record_id": "THM-ASN-000012",
+      "source_record_id": "RESP-SUR-2026-000004-001",
+      "target_record_id": "THM-ASN-000004",
       "target_table": "feedback_theme_assignments"
     },
     {
       "issue_type": "THEME_OUTSIDE_TAXONOMY",
       "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000012-001",
-      "target_record_id": "THM-ASN-000013",
+      "source_record_id": "RESP-SUR-2026-000005-001",
+      "target_record_id": "THM-ASN-000005",
       "target_table": "feedback_theme_assignments"
     },
     {
       "issue_type": "THEME_OUTSIDE_TAXONOMY",
       "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000013-001",
-      "target_record_id": "THM-ASN-000014",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000014-001",
-      "target_record_id": "THM-ASN-000015",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000015-001",
-      "target_record_id": "THM-ASN-000016",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000016-001",
-      "target_record_id": "THM-ASN-000017",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000017-001",
-      "target_record_id": "THM-ASN-000018",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000018-001",
-      "target_record_id": "THM-ASN-000019",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000019-001",
-      "target_record_id": "THM-ASN-000020",
-      "target_table": "feedback_theme_assignments"
-    },
-    {
-      "issue_type": "THEME_OUTSIDE_TAXONOMY",
-      "rule_id": "VAL-ANOM-004",
-      "source_record_id": "RESP-SUR-2026-000019-001",
-      "target_record_id": "THM-ASN-000021",
+      "source_record_id": "RESP-SUR-2026-000006-001",
+      "target_record_id": "THM-ASN-000006",
       "target_table": "feedback_theme_assignments"
     },
     {
       "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
       "rule_id": "VAL-ANOM-005",
       "source_record_id": "MSG-TKT-2026-000001-001",
-      "target_record_id": "INP-050001",
+      "target_record_id": "INP-001201",
       "target_table": "model_inputs"
     },
     {
       "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
       "rule_id": "VAL-ANOM-005",
       "source_record_id": "MSG-TKT-2026-000001-003",
-      "target_record_id": "INP-050003",
+      "target_record_id": "INP-001203",
       "target_table": "model_inputs"
     },
     {
       "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
       "rule_id": "VAL-ANOM-005",
       "source_record_id": "MSG-TKT-2026-000002-001",
-      "target_record_id": "INP-050004",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000002-003",
-      "target_record_id": "INP-050006",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000003-001",
-      "target_record_id": "INP-050007",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000003-003",
-      "target_record_id": "INP-050009",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000004-001",
-      "target_record_id": "INP-050010",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000004-003",
-      "target_record_id": "INP-050012",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000005-001",
-      "target_record_id": "INP-050013",
-      "target_table": "model_inputs"
-    },
-    {
-      "issue_type": "TEST_LABEL_IN_MODEL_INPUT",
-      "rule_id": "VAL-ANOM-005",
-      "source_record_id": "MSG-TKT-2026-000005-003",
-      "target_record_id": "INP-050015",
+      "target_record_id": "INP-001204",
       "target_table": "model_inputs"
     }
   ],

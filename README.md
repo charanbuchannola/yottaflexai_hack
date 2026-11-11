@@ -44,25 +44,34 @@ See full schema, types, constraints, cardinalities, optional relationships, effe
 
 ---
 
-## 3. Repository Layout
+## 3. Repository Layout (Enterprise 3-Tier Separation)
 
 ```text
-├── docs/
-│   ├── architecture.md
-│   ├── business_rules.md
-│   ├── data_dictionary.md
-│   └── reproducibility_report.md
-├── src/voc_intel/
-│   ├── config.py                    # Settings, STARTER & FULL profiles, fixed seed 20261022
-│   ├── main.py                      # Typer CLI entrypoint (`voc-intel`)
-│   ├── models/                      # SQLAlchemy 2.0 schema with FKs, CHECKs, UNIQUEs
-│   ├── generators/                  # Master, feedback, multilingual/sarcasm templates, edge-case injector
-│   ├── pipeline/                    # NLP classifier, shift detector, priority engine, FSM replay, orchestrator
-│   ├── validators/                  # PK/FK/Enum/Date/Reconciliation/FSM/Leakage/Anomaly validators
-│   ├── analytics/                   # Segregated ground truth, measurable metrics, reproducibility checker
-│   ├── exporters/                   # Canonical CSV, JSON, schema.sql, seed.sql, SHA-256 manifest
-│   └── api/                         # FastAPI REST endpoints for themes, shifts, priorities, traceability, anomalies
-└── tests/                           # Pytest suite covering models, rules, anomalies, leakage, SQL replay, API
+├── frontend/                        # FRONTEND TIER (Next.js App Router + TypeScript)
+│   ├── next.config.ts               # Server-side proxy rewrites (/api/backend -> FastAPI)
+│   └── src/
+│       ├── app/                     # Root layout, styles & workspace shell
+│       ├── features/                # Feature modules: overview, themes, shifts, priorities, anomalies
+│       ├── lib/api-client.ts        # Strict HTTP-only typed REST client
+│       └── types/voc.ts             # TypeScript API contracts
+├── backend/                         # BACKEND TIER (Python 3.12 + FastAPI + SQLAlchemy 2.0)
+│   ├── pyproject.toml               # Package & CLI definition (`voc-intel`)
+│   ├── src/voc_intel/
+│   │   ├── core/                    # Config, DB engine, exceptions, deterministic identifiers
+│   │   ├── db/                      # 16 normalized SQLAlchemy ORM models
+│   │   ├── repositories/            # Exclusive SQLAlchemy queries & persistence layer
+│   │   ├── services/                # Business logic, FSM transition validation, pipeline orchestration
+│   │   ├── features/                # generation, nlp, shifts, priorities, lifecycle, validation, evaluation, export
+│   │   ├── api/                     # Thin REST v1 routers + DI + CORS middleware (zero ORM/SQL imports)
+│   │   └── cli/main.py              # Typer CLI entrypoint (`voc-intel`)
+│   └── tests/                       # Pytest suite (architecture boundaries, models, rules, anomalies, API, CLI)
+├── database/                        # DATABASE TIER (DDL, Migrations, Seeds & Ground Truth)
+│   ├── schema/schema.sql            # Canonical SQL DDL
+│   ├── migrations/                  # Versioned migration baseline (`001_initial_schema.sql`)
+│   ├── seeds/                       # Batched multi-row SQL seed (`seed.sql`)
+│   └── ground_truth/                # Segregated `ground_truth.csv` and `ground_truth.json` (zero leakage)
+├── docs/                            # Architecture, data dictionary, business rules, reproducibility report
+└── exports/                         # Canonical CSV, JSON, validation/evaluation reports, SHA-256 manifest
 ```
 
 ---
@@ -71,12 +80,20 @@ See full schema, types, constraints, cardinalities, optional relationships, effe
 
 ### Prerequisites
 - Python 3.12+
+- Node.js 20+ & `pnpm` (for the Next.js frontend)
 
-### Installation
+### Backend Installation
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\activate
-pip install -e ".[dev]"
+pip install -e ".\backend[dev]"
+```
+
+### Frontend Installation
+```powershell
+cd frontend
+pnpm install
+cd ..
 ```
 
 ### Generate Datasets (Fixed Seed `20261022`)
@@ -104,16 +121,28 @@ voc-intel evaluate
 voc-intel reproduce --profile FULL --seed 20261022
 ```
 
-### Run Automated Tests
+### Run Automated Tests & Frontend Build
 ```powershell
-pytest
+# Backend unit, integration, boundary, and API tests
+pytest backend/tests
+
+# Frontend typecheck & production Next.js build
+cd frontend
+pnpm typecheck
+pnpm build
+cd ..
 ```
 
-### Start the REST API Server
+### Start Full-Stack Application (Backend + Next.js Frontend)
 ```powershell
+# Terminal 1: Start FastAPI backend on http://127.0.0.1:8000
 voc-intel serve --host 127.0.0.1 --port 8000
+
+# Terminal 2: Start Next.js frontend on http://localhost:3000
+cd frontend
+pnpm dev
 ```
-Key endpoints:
+Key Backend REST endpoints:
 - `GET /health`
 - `GET /api/v1/themes`
 - `GET /api/v1/shifts?significant_only=true`
@@ -128,7 +157,7 @@ Key endpoints:
 
 ## 5. Segregated Ground Truth, Edge Cases & Lawful Provenance
 
-- **Ground Truth Segregation**: Human-reviewed evaluation gold labels (`EVALUATION_GOLD_LABEL`), planted shifts (`EXPECTED_SHIFT`), and labelled anomalies (`INJECTED_ANOMALY`) are written exclusively to `data/ground_truth/ground_truth.csv` and `data/ground_truth/ground_truth.json` and are never included in operational tables or model input features.
+- **Ground Truth Segregation**: Human-reviewed evaluation gold labels (`EVALUATION_GOLD_LABEL`), planted shifts (`EXPECTED_SHIFT`), and labelled anomalies (`INJECTED_ANOMALY`) are written exclusively to `database/ground_truth/ground_truth.csv` and `database/ground_truth/ground_truth.json` and are never included in operational tables or model input features.
 - **Injected Edge Cases** (all 5 verified in `validation_report.json` & `evaluation_metrics.json`):
   1. `LABEL_TEXT_CONTRADICTION`
   2. `DUPLICATE_RESPONSE`
@@ -149,6 +178,6 @@ Key endpoints:
   - Sentiment Shift Detection F1: `1.0` (`3/3` expected shifts detected, `0` FP, `0` FN)
   - Service Priority Evidence Reconciliation: `1.0` (`5` action items linked to `13,465` source records)
   - Anomaly Detection F1: `1.0` (`50/50` injected edge cases detected across all 5 categories, `0` FP, `0` FN)
-- **Bitwise Reproducibility**: `38/38` exported files matched identical SHA-256 checksums across two isolated full-scale runs (`docs/reproducibility_report.md`).
+- **Bitwise Reproducibility**: `39/39` exported files matched identical SHA-256 checksums across two isolated full-scale runs (`docs/reproducibility_report.md`).
 
 

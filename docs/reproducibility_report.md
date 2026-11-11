@@ -4,7 +4,7 @@
 - **Fixed Seed**: `20261022`
 - **Anomalies Included**: `True`
 - **Row Counts Identical**: `True`
-- **Files Bitwise Matched**: `38/38`
+- **Files Bitwise Matched**: `39/39`
 - **Overall Status**: `PASS`
 
 ## Table Row Counts (Run 1 == Run 2)
@@ -32,8 +32,11 @@
 
 | Artifact Path | Size (Bytes) | SHA-256 (Run 1 == Run 2) |
 | :--- | ---: | :--- |
-| `data/ground_truth/ground_truth.csv` | 1051928 | `f924121815d10b2a7971b2de4aad554f2afd73f534dd043194d38b79e7e833e5` |
-| `data/ground_truth/ground_truth.json` | 1667068 | `c1de0d801f4f869ed9160e77f8a027485eca8216e4f1053f68a57bc65438e4ee` |
+| `database/ground_truth/ground_truth.csv` | 1051928 | `f924121815d10b2a7971b2de4aad554f2afd73f534dd043194d38b79e7e833e5` |
+| `database/ground_truth/ground_truth.json` | 1667068 | `c1de0d801f4f869ed9160e77f8a027485eca8216e4f1053f68a57bc65438e4ee` |
+| `database/migrations/001_initial_schema.sql` | 16705 | `439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164` |
+| `database/schema/schema.sql` | 16705 | `439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164` |
+| `database/seeds/seed.sql` | 123503056 | `fe19260dca3fb4331d1254d2d2fa13d5c42570b6cbc6cc83125721e35b305f2e` |
 | `exports/csv/action_item_evidence.csv` | 1230697 | `6a7f6400ba6821e5235199ced56cf41f9a888e217f1a507dc4e9c1eab9775e03` |
 | `exports/csv/action_items.csv` | 2034 | `d1621aae92554c9045d456bdf41dd54689205363a0328bb9254de79338b1abc9` |
 | `exports/csv/channels.csv` | 620 | `abe879a227553d7e7eca9b86fa99876898295ebaeaf8207f3fb2d04d25a11297` |
@@ -68,5 +71,3 @@
 | `exports/json/themes.json` | 10463 | `64a10a7cf876ea2727f2e43186acbd2825690fbe496a6921a3050794b6acc619` |
 | `exports/reports/evaluation_metrics.json` | 2665 | `2975f999efb029aaa36f988aa9c2b04ccc483000af559ce0fe736152d55e4754` |
 | `exports/reports/validation_report.json` | 15343 | `e2218bf518cadc1ddb315bf29e9583bbb3c01742bc663fc61b7a15666fcb0a8a` |
-| `exports/sql/schema.sql` | 16705 | `439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164` |
-| `exports/sql/seed.sql` | 123503056 | `fe19260dca3fb4331d1254d2d2fa13d5c42570b6cbc6cc83125721e35b305f2e` |

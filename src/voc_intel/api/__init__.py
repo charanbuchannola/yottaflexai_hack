@@ -1,2 +1,0 @@
-"""FastAPI REST service package."""
-

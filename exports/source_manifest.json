@@ -28,13 +28,25 @@
     "themes": 12
   },
   "files": {
-    "data/ground_truth/ground_truth.csv": {
+    "database/ground_truth/ground_truth.csv": {
       "sha256": "f924121815d10b2a7971b2de4aad554f2afd73f534dd043194d38b79e7e833e5",
       "size_bytes": 1051928
     },
-    "data/ground_truth/ground_truth.json": {
+    "database/ground_truth/ground_truth.json": {
       "sha256": "c1de0d801f4f869ed9160e77f8a027485eca8216e4f1053f68a57bc65438e4ee",
       "size_bytes": 1667068
+    },
+    "database/migrations/001_initial_schema.sql": {
+      "sha256": "439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164",
+      "size_bytes": 16705
+    },
+    "database/schema/schema.sql": {
+      "sha256": "439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164",
+      "size_bytes": 16705
+    },
+    "database/seeds/seed.sql": {
+      "sha256": "fe19260dca3fb4331d1254d2d2fa13d5c42570b6cbc6cc83125721e35b305f2e",
+      "size_bytes": 123503056
     },
     "exports/csv/action_item_evidence.csv": {
       "sha256": "6a7f6400ba6821e5235199ced56cf41f9a888e217f1a507dc4e9c1eab9775e03",
@@ -171,14 +183,6 @@
     "exports/reports/validation_report.json": {
       "sha256": "e2218bf518cadc1ddb315bf29e9583bbb3c01742bc663fc61b7a15666fcb0a8a",
       "size_bytes": 15343
-    },
-    "exports/sql/schema.sql": {
-      "sha256": "439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164",
-      "size_bytes": 16705
-    },
-    "exports/sql/seed.sql": {
-      "sha256": "fe19260dca3fb4331d1254d2d2fa13d5c42570b6cbc6cc83125721e35b305f2e",
-      "size_bytes": 123503056
     }
   },
   "generated_anchor_utc": "2026-10-22T00:00:00Z",
@@ -193,6 +197,6 @@
   "manifest_version": "1.0.0",
   "schema_version": "1.0.0",
   "seed": 20261022,
-  "total_bytes": 467242856,
-  "total_files": 38
+  "total_bytes": 467259561,
+  "total_files": 39
 }
