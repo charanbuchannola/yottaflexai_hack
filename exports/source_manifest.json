@@ -1,0 +1,198 @@
+{
+  "configuration": {
+    "customers_count": 5000,
+    "products_count": 10,
+    "reviews_count": 25000,
+    "simulation_days": 90,
+    "support_tickets_count": 8000,
+    "survey_responses_count": 25000,
+    "surveys_count": 50
+  },
+  "dataset_profile": "FULL",
+  "entity_counts": {
+    "action_item_evidence": 13465,
+    "action_items": 5,
+    "channels": 7,
+    "customers": 5000,
+    "feedback_theme_assignments": 80326,
+    "lifecycle_events": 244810,
+    "model_inputs": 70010,
+    "products": 10,
+    "reviews": 25000,
+    "sentiment_labels": 70010,
+    "sentiment_shifts": 115,
+    "support_messages": 20000,
+    "support_tickets": 8000,
+    "survey_responses": 25010,
+    "surveys": 50,
+    "themes": 12
+  },
+  "files": {
+    "data/ground_truth/ground_truth.csv": {
+      "sha256": "f924121815d10b2a7971b2de4aad554f2afd73f534dd043194d38b79e7e833e5",
+      "size_bytes": 1051928
+    },
+    "data/ground_truth/ground_truth.json": {
+      "sha256": "c1de0d801f4f869ed9160e77f8a027485eca8216e4f1053f68a57bc65438e4ee",
+      "size_bytes": 1667068
+    },
+    "exports/csv/action_item_evidence.csv": {
+      "sha256": "6a7f6400ba6821e5235199ced56cf41f9a888e217f1a507dc4e9c1eab9775e03",
+      "size_bytes": 1230697
+    },
+    "exports/csv/action_items.csv": {
+      "sha256": "d1621aae92554c9045d456bdf41dd54689205363a0328bb9254de79338b1abc9",
+      "size_bytes": 2034
+    },
+    "exports/csv/channels.csv": {
+      "sha256": "abe879a227553d7e7eca9b86fa99876898295ebaeaf8207f3fb2d04d25a11297",
+      "size_bytes": 620
+    },
+    "exports/csv/customers.csv": {
+      "sha256": "22eacab53021557ecf0c8537cc2a9e1ec19a49928aa0f4bb17efcbce4344ae14",
+      "size_bytes": 518116
+    },
+    "exports/csv/feedback_theme_assignments.csv": {
+      "sha256": "97a8d31c2a7efd549a0c8754d017d91e4bfccc1195b288d0ffb1a27393dfeab5",
+      "size_bytes": 10229469
+    },
+    "exports/csv/lifecycle_events.csv": {
+      "sha256": "d62044507493f095e3e550679697f108d3e529142428ed977bc1950604ffef36",
+      "size_bytes": 33509116
+    },
+    "exports/csv/model_inputs.csv": {
+      "sha256": "94c810a07a9dd241b724167749d61d3b5b50b5db19c84ded01e58a032443e0c6",
+      "size_bytes": 23550883
+    },
+    "exports/csv/products.csv": {
+      "sha256": "14854fd271f64b2d3067375d0ba6617c93090b33b64e7ceef78291bf0e7d97c6",
+      "size_bytes": 1062
+    },
+    "exports/csv/reviews.csv": {
+      "sha256": "211ee166111efb6b7a4d548a3065787dd78c9ece9bed66cbae7f05c3ae2c6ac2",
+      "size_bytes": 8717332
+    },
+    "exports/csv/sentiment_labels.csv": {
+      "sha256": "7288e1d086d12793523ce1e48166db43989e86fe454c1dbee158623ad11073ba",
+      "size_bytes": 11901706
+    },
+    "exports/csv/sentiment_shifts.csv": {
+      "sha256": "5f103ed515ba4a0b065cf0f8d0ac380e9513c10321e13d3c55c33300cf00afde",
+      "size_bytes": 23661
+    },
+    "exports/csv/support_messages.csv": {
+      "sha256": "bd2d57721cefe916f8fc995f84278c3132ce3f0d0bc226a278e32a0bddaafd30",
+      "size_bytes": 6513295
+    },
+    "exports/csv/support_tickets.csv": {
+      "sha256": "4367e5316c6ce9b0d42a09bc481b8bec5126c09eedb80f18cd2f3e052eef4094",
+      "size_bytes": 1268772
+    },
+    "exports/csv/survey_responses.csv": {
+      "sha256": "af828c6794dbae6134f4b8e4ea4081cc1802ad778948d202729902118f24fd36",
+      "size_bytes": 8067357
+    },
+    "exports/csv/surveys.csv": {
+      "sha256": "959908553e22e9cf8f2acea9813114989c83f985d0cdadb84ea65413b7203d4c",
+      "size_bytes": 9834
+    },
+    "exports/csv/themes.csv": {
+      "sha256": "9b2cf961789d712223d7a47c28b7e811e7c129ff1dc7749d5ec22fa5386a7d05",
+      "size_bytes": 7846
+    },
+    "exports/json/action_item_evidence.json": {
+      "sha256": "eb3cccebbf16a52024996cc2698dea10346218bc2295ca0edd763c796be8833d",
+      "size_bytes": 3735091
+    },
+    "exports/json/action_items.json": {
+      "sha256": "714e00b93ef4227eb07010b6e4b6646a64454058f0d2ea9a1bdac7f95f4a847d",
+      "size_bytes": 3844
+    },
+    "exports/json/channels.json": {
+      "sha256": "400c600d6c2f6aab6375ced9546cb52e2217a6fc10f387382fc8605e2983fb71",
+      "size_bytes": 2002
+    },
+    "exports/json/customers.json": {
+      "sha256": "810b5f0c610328cfdbd8c668fe3ff14aaab67701be2854fcefd4dfd024551b4d",
+      "size_bytes": 1717484
+    },
+    "exports/json/feedback_theme_assignments.json": {
+      "sha256": "228d4f0725ce4052baaab335ba007bd9059e01fb29205031da0e4af080356f14",
+      "size_bytes": 29346949
+    },
+    "exports/json/lifecycle_events.json": {
+      "sha256": "2b0016bbe8d457543d3f1a7fb1e13af8fbb4056e8ab2cba63632a8e1ff8bd5bd",
+      "size_bytes": 79444625
+    },
+    "exports/json/model_inputs.json": {
+      "sha256": "ac3f80f2e6d9ed8be20aa42363c4a7039d023ae226aa9d669f6c30155dbd723d",
+      "size_bytes": 44673944
+    },
+    "exports/json/products.json": {
+      "sha256": "5215d9927692691bb614c7120fa6c5a0e2e54c6adf99a188fa1d95d45befd5c8",
+      "size_bytes": 3068
+    },
+    "exports/json/reviews.json": {
+      "sha256": "51a22e7812a270e39057cd4d805df6c89a9431a3193162f3ef725d93a1bcc95a",
+      "size_bytes": 15912192
+    },
+    "exports/json/sentiment_labels.json": {
+      "sha256": "75cbf54f5061dc0ab937b2fbbbd6cf3ff43f9b54bd50076d7cd2b20d16fe487b",
+      "size_bytes": 30804284
+    },
+    "exports/json/sentiment_shifts.json": {
+      "sha256": "23110a9ed2cf31f505a2649c7e6828118234f1b038a87e405b789b3ea8fcb513",
+      "size_bytes": 67717
+    },
+    "exports/json/support_messages.json": {
+      "sha256": "b88ffd63c17b4ab630d6990c29a887012bc2b18571844bcb6616776f530edbfc",
+      "size_bytes": 11767548
+    },
+    "exports/json/support_tickets.json": {
+      "sha256": "1b9efdb3c55a6b2a8d70efcd8871313c8d26cceda11307f6ff3bd622190e1a23",
+      "size_bytes": 3014132
+    },
+    "exports/json/survey_responses.json": {
+      "sha256": "00a44283e4c77266aa48cf44fa09f235c69335e05b5acf4a998074e16d05f3a3",
+      "size_bytes": 14907897
+    },
+    "exports/json/surveys.json": {
+      "sha256": "6af03acd26f011fcb4ee4dff5effde30a8ceabb16ae636e5ee4613a871948cd0",
+      "size_bytes": 23051
+    },
+    "exports/json/themes.json": {
+      "sha256": "64a10a7cf876ea2727f2e43186acbd2825690fbe496a6921a3050794b6acc619",
+      "size_bytes": 10463
+    },
+    "exports/reports/evaluation_metrics.json": {
+      "sha256": "2975f999efb029aaa36f988aa9c2b04ccc483000af559ce0fe736152d55e4754",
+      "size_bytes": 2665
+    },
+    "exports/reports/validation_report.json": {
+      "sha256": "e2218bf518cadc1ddb315bf29e9583bbb3c01742bc663fc61b7a15666fcb0a8a",
+      "size_bytes": 15343
+    },
+    "exports/sql/schema.sql": {
+      "sha256": "439a1f2ea60c86b21afd2473e5d6d93dbe2937cfba264f1ac6a10808ddb57164",
+      "size_bytes": 16705
+    },
+    "exports/sql/seed.sql": {
+      "sha256": "fe19260dca3fb4331d1254d2d2fa13d5c42570b6cbc6cc83125721e35b305f2e",
+      "size_bytes": 123503056
+    }
+  },
+  "generated_anchor_utc": "2026-10-22T00:00:00Z",
+  "generator_command": "voc-intel generate-full --seed 20261022",
+  "generator_version": "0.1.0",
+  "inject_anomalies": true,
+  "lawful_provenance": {
+    "external_datasets_used": false,
+    "pii_policy": "Strictly privacy-safe synthetic text; decoy PII exists only in labelled CUSTOMER_IDENTITY_LEAKED edge-case rows using RFC-2606 .invalid domains and 555 numbers.",
+    "source_type": "SYNTHETIC_DETERMINISTIC"
+  },
+  "manifest_version": "1.0.0",
+  "schema_version": "1.0.0",
+  "seed": 20261022,
+  "total_bytes": 467242856,
+  "total_files": 38
+}

@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment
+.env
+
+# Generated bulky runtime database & large data dumps (regenerated deterministically via CLI)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+exports/csv/
+exports/json/
+exports/sql/seed.sql

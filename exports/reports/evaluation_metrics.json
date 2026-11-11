@@ -1,0 +1,126 @@
+{
+  "anomaly_detection_metrics": {
+    "by_issue_type": {
+      "CUSTOMER_IDENTITY_LEAKED": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 10
+      },
+      "DUPLICATE_RESPONSE": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 10
+      },
+      "LABEL_TEXT_CONTRADICTION": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 10
+      },
+      "TEST_LABEL_IN_MODEL_INPUT": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 10
+      },
+      "THEME_OUTSIDE_TAXONOMY": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "tp": 10
+      }
+    },
+    "detected_anomalies": 50,
+    "expected_anomalies": 50,
+    "overall": {
+      "f1": 1.0,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 50
+    }
+  },
+  "evaluation_set_size": 2500,
+  "sentiment_metrics": {
+    "accuracy": 0.9396,
+    "macro_f1": 0.9397,
+    "multilingual_accuracy": 0.9507,
+    "multilingual_samples": 527,
+    "per_class": {
+      "MIXED": {
+        "f1": 0.9407,
+        "fn": 70,
+        "fp": 0,
+        "precision": 1.0,
+        "recall": 0.888,
+        "tp": 555
+      },
+      "NEGATIVE": {
+        "f1": 0.9336,
+        "fn": 27,
+        "fp": 58,
+        "precision": 0.9116,
+        "recall": 0.9568,
+        "tp": 598
+      },
+      "NEUTRAL": {
+        "f1": 0.937,
+        "fn": 15,
+        "fp": 67,
+        "precision": 0.901,
+        "recall": 0.976,
+        "tp": 610
+      },
+      "POSITIVE": {
+        "f1": 0.9475,
+        "fn": 39,
+        "fp": 26,
+        "precision": 0.9575,
+        "recall": 0.9376,
+        "tp": 586
+      }
+    },
+    "sarcasm_accuracy": 1.0,
+    "sarcasm_samples": 20
+  },
+  "sentiment_shift_metrics": {
+    "detected_significant_shifts": 3,
+    "expected_shifts": 3,
+    "f1": 1.0,
+    "fn": 0,
+    "fp": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "tp": 3
+  },
+  "service_priority_metrics": {
+    "action_items_count": 5,
+    "evidence_reconciliation_rate": 1.0,
+    "p0_critical_count": 1,
+    "p1_high_count": 2,
+    "p2_medium_count": 2,
+    "total_evidence_links": 13465
+  },
+  "theme_metrics": {
+    "exact_match_rate": 0.8576,
+    "f1": 0.8965,
+    "fn": 358,
+    "fp": 281,
+    "precision": 0.9078,
+    "recall": 0.8854,
+    "tp": 2767
+  }
+}
