@@ -1,5 +1,6 @@
 """Typer CLI entry point for generation, validation, evaluation, reproducibility, and API serving."""
 
+import json
 from pathlib import Path
 from typing import Optional
 
@@ -8,10 +9,13 @@ from rich.table import Table
 import typer
 import uvicorn
 
+from voc_intel.analytics.metrics import compute_evaluation_metrics
 from voc_intel.analytics.reproducibility import verify_reproducibility
 from voc_intel.config import ProfileType, settings
+from voc_intel.exporters.relational import load_tables_from_db
 from voc_intel.models.database import build_engine, reset_database
 from voc_intel.pipeline.orchestrator import PipelineResult, run_full_pipeline
+from voc_intel.validators.runner import run_all_validations
 
 app = typer.Typer(
     name="voc-intel",
@@ -135,6 +139,102 @@ def reproduce(
         for m in summary["mismatches"]:
             console.print(f"[red]  - {m}[/red]")
         raise typer.Exit(code=1)
+
+
+@app.command()
+def validate(
+    database_url: Optional[str] = typer.Option(None, help="Override SQLAlchemy database URL"),
+    ground_truth_path: Path = typer.Option(
+        Path("data/ground_truth/ground_truth.json"), help="Path to segregated ground_truth.json"
+    ),
+    expect_anomalies: bool = typer.Option(
+        True, "--anomalies/--no-anomalies", help="Validate anomaly coverage vs baseline purity"
+    ),
+    output_path: Optional[Path] = typer.Option(None, help="Output validation report JSON path"),
+) -> None:
+    """Run full relational, reconciliation, FSM, leakage, and anomaly validations against the database."""
+    engine = build_engine(database_url)
+    try:
+        tables = load_tables_from_db(engine)
+        gt_records = (
+            json.loads(ground_truth_path.read_text(encoding="utf-8"))
+            if ground_truth_path.exists()
+            else []
+        )
+        report = run_all_validations(
+            tables=tables,
+            gt_records=gt_records,
+            engine=engine,
+            expect_anomalies=expect_anomalies,
+            output_path=output_path,
+        )
+    finally:
+        engine.dispose()
+
+    tbl = Table(title=f"Validation Summary ({report['mode']})")
+    tbl.add_column("Check ID", style="cyan")
+    tbl.add_column("Passed", justify="center")
+    for chk in report["checks"]:
+        status = "[green]PASS[/green]" if chk["passed"] else "[red]FAIL[/red]"
+        tbl.add_row(chk["check_id"], status)
+    console.print(tbl)
+    console.print(
+        f"Overall: {'PASS' if report['overall_passed'] else 'FAIL'} "
+        f"({report['passed_checks']}/{report['total_checks']} checks)"
+    )
+    if not report["overall_passed"]:
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def evaluate(
+    database_url: Optional[str] = typer.Option(None, help="Override SQLAlchemy database URL"),
+    ground_truth_path: Path = typer.Option(
+        Path("data/ground_truth/ground_truth.json"), help="Path to segregated ground_truth.json"
+    ),
+    output_path: Optional[Path] = typer.Option(None, help="Output evaluation metrics JSON path"),
+) -> None:
+    """Compute and display measurable NLP, shift detection, priority, and anomaly metrics."""
+    if not ground_truth_path.exists():
+        console.print(f"[red]Ground truth file not found: {ground_truth_path}[/red]")
+        raise typer.Exit(code=1)
+
+    gt_records = json.loads(ground_truth_path.read_text(encoding="utf-8"))
+    engine = build_engine(database_url)
+    try:
+        tables = load_tables_from_db(engine)
+    finally:
+        engine.dispose()
+
+    val_report = run_all_validations(
+        tables=tables,
+        gt_records=gt_records,
+        expect_anomalies=any(g["record_category"] == "INJECTED_ANOMALY" for g in gt_records),
+    )
+    metrics = compute_evaluation_metrics(
+        gt_records=gt_records,
+        sentiment_labels=tables["sentiment_labels"],
+        theme_assignments=tables["feedback_theme_assignments"],
+        sentiment_shifts=tables["sentiment_shifts"],
+        action_items=tables["action_items"],
+        action_evidence=tables["action_item_evidence"],
+        detected_anomalies=val_report["detected_anomalies"],
+        output_path=output_path,
+    )
+
+    tbl = Table(title="VoC Evaluation Metrics")
+    tbl.add_column("Metric", style="cyan")
+    tbl.add_column("Value", justify="right", style="green")
+    tbl.add_row("Evaluation Set Size", str(metrics["evaluation_set_size"]))
+    tbl.add_row("Sentiment Accuracy", str(metrics["sentiment_metrics"]["accuracy"]))
+    tbl.add_row("Sentiment Macro-F1", str(metrics["sentiment_metrics"]["macro_f1"]))
+    tbl.add_row("Multilingual Accuracy", str(metrics["sentiment_metrics"]["multilingual_accuracy"]))
+    tbl.add_row("Sarcasm Accuracy", str(metrics["sentiment_metrics"]["sarcasm_accuracy"]))
+    tbl.add_row("Theme Micro-F1", str(metrics["theme_metrics"]["f1"]))
+    tbl.add_row("Shift Detection F1", str(metrics["sentiment_shift_metrics"]["f1"]))
+    tbl.add_row("Action Evidence Reconciliation", str(metrics["service_priority_metrics"]["evidence_reconciliation_rate"]))
+    tbl.add_row("Anomaly Detection F1", str(metrics["anomaly_detection_metrics"]["overall"]["f1"]))
+    console.print(tbl)
 
 
 @app.command()

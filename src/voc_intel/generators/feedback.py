@@ -487,10 +487,15 @@ def generate_feedback_records(
 
     # 3. Generate SupportTickets & exact target count of SupportMessages
     # Distribute n_messages_target deterministically across n_tickets (>=1 msg per ticket)
-    if n_messages_target < n_tickets:
-        n_tickets = n_messages_target
-    base_per_tkt = n_messages_target // n_tickets
-    remainder = n_messages_target % n_tickets
+    if n_messages_target <= 0:
+        n_tickets = 0
+        base_per_tkt = 0
+        remainder = 0
+    else:
+        if n_messages_target < n_tickets:
+            n_tickets = n_messages_target
+        base_per_tkt = n_messages_target // n_tickets
+        remainder = n_messages_target % n_tickets
 
     for t_idx in range(1, n_tickets + 1):
         tkt_id = IDGenerator.ticket_id(sim_year, t_idx)

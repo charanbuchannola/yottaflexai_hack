@@ -68,3 +68,14 @@ def test_api_endpoints_traceability_anomalies_and_fsm_transitions(starter_pipeli
         eval_rep = client.get("/api/v1/reports/evaluation")
         assert eval_rep.status_code == 200
         assert eval_rep.json()["anomaly_detection_metrics"]["overall"]["f1"] == 1.0
+
+        # 6. Error handling (404s)
+        assert client.get("/api/v1/priorities/ACT-2026-999999/traceability").status_code == 404
+        assert (
+            client.post(
+                "/api/v1/priorities/ACT-2026-999999/transition",
+                json={"to_state": "CLOSED", "actor": "analyst", "reason": "Missing"},
+            ).status_code
+            == 404
+        )
+        assert client.get("/api/v1/reports/unknown").status_code == 404

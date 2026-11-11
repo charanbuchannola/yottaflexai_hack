@@ -1,10 +1,11 @@
 """Tests for multilingual NLP, sarcasm, mixed sentiment, priority scoring, shifts, and FSM."""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from voc_intel.pipeline.lifecycle import is_valid_transition, replay_entity_states
 from voc_intel.pipeline.nlp import classify_sentiment, classify_themes, scan_pii
 from voc_intel.pipeline.priorities import compute_priority_score
+from voc_intel.pipeline.shifts import detect_sentiment_shifts
 
 
 def test_multilingual_sarcasm_mixed_and_ambiguous_classification() -> None:
@@ -122,4 +123,54 @@ def test_fsm_transitions_and_event_replay() -> None:
     ]
     _, bad_violations = replay_entity_states(illegal_events)
     assert len(bad_violations) == 1
+
+
+def test_sentiment_shift_detector_declining_improving_stable() -> None:
+    w_start = datetime(2026, 9, 1, 0, 0, 0)
+    split_dt = datetime(2026, 9, 21, 0, 0, 0)
+    anchor_dt = datetime(2026, 10, 1, 0, 0, 0)
+
+    reviews = []
+    sent_labels = []
+    assignments = []
+    seq = 1
+
+    # Cohort 1 (PROD-001, THEME-000001): DECLINING (+0.8 -> -0.8)
+    # Cohort 2 (PROD-002, THEME-000002): IMPROVING (-0.8 -> +0.8)
+    # Cohort 3 (PROD-003, THEME-000003): STABLE (+0.2 -> +0.2)
+    cohorts = (
+        ("PROD-001", "THEME-000001", 0.8, -0.8),
+        ("PROD-002", "THEME-000002", -0.8, 0.8),
+        ("PROD-003", "THEME-000003", 0.2, 0.2),
+    )
+    for prod_id, theme_id, base_s, curr_s in cohorts:
+        for i in range(10):
+            rid = f"REV-2026-{seq:06d}"
+            reviews.append({"review_id": rid, "product_id": prod_id, "published_at": w_start + timedelta(days=i), "lifecycle_state": "VERIFIED"})
+            sent_labels.append({"source_type": "REVIEW", "response_id": None, "review_id": rid, "message_id": None, "sentiment_score": base_s + (0.02 if i % 2 == 0 else -0.02)})
+            assignments.append({"source_type": "REVIEW", "response_id": None, "review_id": rid, "message_id": None, "theme_id": theme_id})
+            seq += 1
+        for i in range(10):
+            rid = f"REV-2026-{seq:06d}"
+            reviews.append({"review_id": rid, "product_id": prod_id, "published_at": split_dt + timedelta(hours=i + 1), "lifecycle_state": "VERIFIED"})
+            sent_labels.append({"source_type": "REVIEW", "response_id": None, "review_id": rid, "message_id": None, "sentiment_score": curr_s + (0.02 if i % 2 == 0 else -0.02)})
+            assignments.append({"source_type": "REVIEW", "response_id": None, "review_id": rid, "message_id": None, "theme_id": theme_id})
+            seq += 1
+
+    shifts = detect_sentiment_shifts(
+        feedback_bundle={"survey_responses": [], "reviews": reviews, "support_messages": []},
+        sentiment_labels=sent_labels,
+        theme_assignments=assignments,
+        window_start=w_start,
+        split_dt=split_dt,
+        anchor_dt=anchor_dt,
+        min_window_samples=8,
+    )
+    by_prod = {s["product_id"]: s for s in shifts}
+    assert by_prod["PROD-001"]["direction"] == "DECLINING"
+    assert by_prod["PROD-001"]["is_significant"] is True
+    assert by_prod["PROD-002"]["direction"] == "IMPROVING"
+    assert by_prod["PROD-002"]["is_significant"] is True
+    assert by_prod["PROD-003"]["direction"] == "STABLE"
+    assert by_prod["PROD-003"]["is_significant"] is False
 

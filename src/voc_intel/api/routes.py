@@ -211,23 +211,54 @@ def get_action_traceability(
         .limit(limit)
     ).all()
 
+    resp_ids = [ev.response_id for ev in evid_rows if ev.response_id]
+    rev_ids = [ev.review_id for ev in evid_rows if ev.review_id]
+    msg_ids = [ev.message_id for ev in evid_rows if ev.message_id]
+
+    resp_texts = (
+        {r.response_id: r.response_text for r in db.scalars(select(SurveyResponse).where(SurveyResponse.response_id.in_(resp_ids))).all()}
+        if resp_ids
+        else {}
+    )
+    rev_texts = (
+        {r.review_id: r.review_text for r in db.scalars(select(Review).where(Review.review_id.in_(rev_ids))).all()}
+        if rev_ids
+        else {}
+    )
+    msg_texts = (
+        {m.message_id: m.message_text for m in db.scalars(select(SupportMessage).where(SupportMessage.message_id.in_(msg_ids))).all()}
+        if msg_ids
+        else {}
+    )
+
+    sl_by_resp = (
+        {s.response_id: s for s in db.scalars(select(SentimentLabel).where(SentimentLabel.response_id.in_(resp_ids))).all()}
+        if resp_ids
+        else {}
+    )
+    sl_by_rev = (
+        {s.review_id: s for s in db.scalars(select(SentimentLabel).where(SentimentLabel.review_id.in_(rev_ids))).all()}
+        if rev_ids
+        else {}
+    )
+    sl_by_msg = (
+        {s.message_id: s for s in db.scalars(select(SentimentLabel).where(SentimentLabel.message_id.in_(msg_ids))).all()}
+        if msg_ids
+        else {}
+    )
+
     sample_evidence: list[EvidenceItemResponse] = []
     for ev in evid_rows:
         rid = ev.response_id or ev.review_id or ev.message_id or ""
-        text_val = ""
-        sl: Optional[SentimentLabel] = None
         if ev.response_id:
-            obj = db.get(SurveyResponse, ev.response_id)
-            text_val = obj.response_text if obj else ""
-            sl = db.scalar(select(SentimentLabel).where(SentimentLabel.response_id == ev.response_id))
+            text_val = resp_texts.get(ev.response_id, "")
+            sl = sl_by_resp.get(ev.response_id)
         elif ev.review_id:
-            obj = db.get(Review, ev.review_id)
-            text_val = obj.review_text if obj else ""
-            sl = db.scalar(select(SentimentLabel).where(SentimentLabel.review_id == ev.review_id))
-        elif ev.message_id:
-            obj = db.get(SupportMessage, ev.message_id)
-            text_val = obj.message_text if obj else ""
-            sl = db.scalar(select(SentimentLabel).where(SentimentLabel.message_id == ev.message_id))
+            text_val = rev_texts.get(ev.review_id, "")
+            sl = sl_by_rev.get(ev.review_id)
+        else:
+            text_val = msg_texts.get(ev.message_id or "", "")
+            sl = sl_by_msg.get(ev.message_id or "")
 
         sample_evidence.append(
             EvidenceItemResponse(
@@ -316,13 +347,18 @@ def transition_action_item(
         .order_by(LifecycleEvent.sequence_no.desc())
     ).all()
     next_seq = (existing_events[0].sequence_no + 1) if existing_events else 1
-    total_evts = db.scalar(select(func.count()).select_from(LifecycleEvent)) or 0
     now_utc = datetime.now(timezone.utc).replace(tzinfo=None)
     if existing_events and now_utc < existing_events[0].event_timestamp:
         now_utc = existing_events[0].event_timestamp
 
+    prefix = f"EVT-{now_utc.year:04d}-"
+    max_evt_id = db.scalar(
+        select(func.max(LifecycleEvent.event_id)).where(LifecycleEvent.event_id.like(f"{prefix}%"))
+    )
+    next_evt_num = (int(max_evt_id.split("-")[-1]) + 1) if max_evt_id else 1
+
     new_evt = LifecycleEvent(
-        event_id=IDGenerator.lifecycle_event_id(now_utc.year, total_evts + 1),
+        event_id=IDGenerator.lifecycle_event_id(now_utc.year, next_evt_num),
         entity_type="ACTION_ITEM",
         entity_id=action_id,
         from_state=act.lifecycle_state,

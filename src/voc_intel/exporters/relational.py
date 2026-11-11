@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from sqlalchemy import insert
+from sqlalchemy import insert, select
 from sqlalchemy.engine import Engine
 from sqlalchemy.schema import CreateTable
 
@@ -165,4 +165,14 @@ def export_canonical_artifacts(
         "schema_path": schema_path,
         "seed_path": seed_path,
     }
+
+
+def load_tables_from_db(engine: Engine) -> dict[str, list[dict[str, Any]]]:
+    """Load all operational tables from SQLAlchemy engine as plain dictionaries."""
+    loaded: dict[str, list[dict[str, Any]]] = {}
+    with engine.connect() as conn:
+        for tbl_name, orm_cls, pk_col in TABLE_REGISTRY:
+            rows = conn.execute(select(orm_cls.__table__).order_by(getattr(orm_cls, pk_col))).mappings().all()
+            loaded[tbl_name] = [dict(r) for r in rows]
+    return loaded
 

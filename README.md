@@ -97,8 +97,10 @@ pip install -e ".[dev]"
   voc-intel generate --profile starter --seed 20261022 --responses 500 --reviews 500 --messages 400
   ```
 
-### Verify Reproducibility (Dual-Run SHA-256 Comparison)
+### Run Validation, Evaluation & Reproducibility Checks
 ```powershell
+voc-intel validate
+voc-intel evaluate
 voc-intel reproduce --profile FULL --seed 20261022
 ```
 
